@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexBank Demo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen">
+
+    <!-- Top Navigation -->
+    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="wallet" class="text-emerald-400 w-6 h-6"></i>
+                <span class="font-bold text-xl tracking-tight text-white">Apex<span class="text-emerald-400">Bank</span></span>
+                <span class="ml-2 text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full border border-slate-700">Demo Mode</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-medium text-white">Jane Doe</p>
+                    <p class="text-xs text-slate-400">Account #•••• 4829</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-semibold">
+                    JD
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Quick Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Balance Card -->
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700/50 shadow-xl relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 text-slate-700/10 transition-transform group-hover:scale-110 duration-300">
+                    <i data-lucide="circle-dollar-sign" class="w-32 h-32"></i>
+                </div>
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-sm font-medium text-slate-400 uppercase tracking-wider">Available Balance</p>
+                    <span class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400 border border-emerald-500/20"><i data-lucide="trending-up" class="w-4 h-4"></i></span>
+                </div>
+                <h3 class="text-3xl font-bold tracking-tight text-white mb-1">$<span id="balanceDisplay">5,420.50</span></h3>
+                <p class="text-xs text-emerald-400 flex items-center gap-1"><i data-lucide="arrow-up-right" class="w-3 h-3"></i> +2.4% from last month</p>
+            </div>
+
+            <!-- Income Card -->
+            <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-sm font-medium text-slate-400 uppercase tracking-wider">Monthly Income</p>
+                    <span class="p-2 bg-blue-500/10 rounded-lg text-blue-400 border border-blue-500/20"><i data-lucide="arrow-down-left" class="w-4 h-4"></i></span>
+                </div>
+                <h3 class="text-3xl font-bold tracking-tight text-white mb-1">$3,200.00</h3>
+                <p class="text-xs text-slate-400">Next deposit: July 1st</p>
+            </div>
+
+            <!-- Expenses Card -->
+            <div class="bg-slate-800/40 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-sm font-medium text-slate-400 uppercase tracking-wider">Monthly Expenses</p>
+                    <span class="p-2 bg-rose-500/10 rounded-lg text-rose-400 border border-rose-500/20"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                </div>
+                <h3 class="text-3xl font-bold tracking-tight text-white mb-1">$1,180.25</h3>
+                <p class="text-xs text-rose-400 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3"></i> 82% of monthly budget used</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left 2 Columns: Activity & Simulation -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Interactive Action Panel -->
+                <div class="bg-slate-800/60 border border-slate-800 rounded-2xl p-6 shadow-md">
+                    <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="arrow-left-right" class="w-5 h-5 text-emerald-400"></i>
+                        Simulate a Transaction
+                    </h2>
+                    <form id="txForm" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Description</label>
+                            <input type="text" id="txDesc" required placeholder="e.g., Target, Starbucks" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Amount ($)</label>
+                            <input type="number" id="txAmount" required step="0.01" min="0.01" placeholder="0.00" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold text-sm rounded-xl py-2 px-4 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer flex items-center justify-center gap-2">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Execute Expense
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="bg-slate-800/20 border border-slate-800 rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                            <i data-lucide="history" class="w-5 h-5 text-emerald-400"></i>
+                            Recent Activity
+                        </h2>
+                        <span class="text-xs text-slate-400">Showing local memory storage</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-xs uppercase text-slate-400 tracking-wider">
+                                    <th class="pb-3 pl-2">Description</th>
+                                    <th class="pb-3">Date</th>
+                                    <th class="pb-3 text-right pr-2">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="txTableBody" class="text-sm divide-y divide-slate-800/50">
+                                <!-- Dynamic rows insert here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Visual Mock Card & Legal Disclaimer -->
+            <div class="space-y-6">
+                <!-- Credit Card Visual -->
+                <div class="bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 p-6 rounded-2xl shadow-2xl relative overflow-hidden aspect-[1.586/1] text-slate-950 flex flex-col justify-between group border border-emerald-400/30">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
+                    <div class="flex justify-between items-start z-10">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest uppercase opacity-75">Apex Premium</p>
+                            <p class="text-[10px] opacity-60">Debit Card</p>
+                        </div>
+                        <i data-lucide="contactless" class="w-6 h-6 opacity-80"></i>
+                    </div>
+                    <div class="z-10 my-auto">
+                        <p class="text-xl font-mono tracking-widest font-semibold">••••  ••••  ••••  4829</p>
+                    </div>
+                    <div class="flex justify-between items-end z-10">
+                        <div>
+                            <p class="text-[9px] uppercase tracking-wider opacity-60">Card Holder</p>
+                            <p class="text-sm font-medium tracking-wide">Jane Doe</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[9px] uppercase tracking-wider opacity-60">Expires</p>
+                            <p class="text-sm font-mono font-medium">12/30</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Demo Features List -->
+                <div class="bg-slate-800/40 border border-slate-800 rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                        <i data-lucide="zap" class="w-4 h-4 text-emerald-400"></i>
+                        Live Demo Features
+                    </h3>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                            <span>Add custom transactions</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                            <span>Real-time balance updates</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                            <span>Transaction history</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                            <span>Local storage persistence</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-4">
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-rose-400">Demo Notice:</strong> This is a demonstration dashboard. All data is simulated and stored locally in your browser. No real transactions are processed.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        let balance = 5420.50;
+        let transactions = [];
+
+        // Load transactions from localStorage on page load
+        function loadTransactions() {
+            const stored = localStorage.getItem('apexTransactions');
+            if (stored) {
+                transactions = JSON.parse(stored);
+                renderTransactions();
+            }
+        }
+
+        // Save transactions to localStorage
+        function saveTransactions() {
+            localStorage.setItem('apexTransactions', JSON.stringify(transactions));
+        }
+
+        // Render transactions in the table
+        function renderTransactions() {
+            const tbody = document.getElementById('txTableBody');
+            tbody.innerHTML = '';
+            
+            transactions.forEach(tx => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-slate-800/30 transition-colors';
+                row.innerHTML = `
+                    <td class="py-3 pl-2 font-medium text-slate-100">${tx.description}</td>
+                    <td class="py-3 text-slate-400 text-sm">${tx.date}</td>
+                    <td class="py-3 text-right pr-2 font-semibold text-rose-400">-$${tx.amount.toFixed(2)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Handle form submission
+        document.getElementById('txForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const description = document.getElementById('txDesc').value;
+            const amount = parseFloat(document.getElementById('txAmount').value);
+            
+            if (!description || !amount || amount <= 0) {
+                alert('Please enter valid transaction details');
+                return;
+            }
+            
+            // Deduct from balance
+            balance -= amount;
+            document.getElementById('balanceDisplay').textContent = balance.toFixed(2);
+            
+            // Add transaction
+            const now = new Date();
+            const date = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            transactions.unshift({
+                description,
+                amount,
+                date
+            });
+            
+            // Keep only last 50 transactions
+            if (transactions.length > 50) {
+                transactions.pop();
+            }
+            
+            saveTransactions();
+            renderTransactions();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('txDesc').focus();
+        });
+
+        // Initialize on page load
+        loadTransactions();
+    </script>
+
+</body>
+</html>
